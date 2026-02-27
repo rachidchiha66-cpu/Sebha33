@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سبحة الأذكار</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        #zikr { font-size: 22px; color: #f1c40f; margin-bottom: 15px; text-align: center; padding: 0 10px; min-height: 60px; }
+        #counter { font-size: 80px; font-weight: bold; margin-bottom: 20px; color: #fff; }
+        .bead { width: 180px; height: 180px; background: radial-gradient(circle, #ffffff 0%, #d1d1d1 100%); border-radius: 50%; border: 8px solid #f1c40f; box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); cursor: pointer; transition: 0.1s; }
+        .bead:active { transform: scale(0.9); }
+        .reset { margin-top: 30px; background: none; border: 1px solid #555; color: #888; padding: 8px 20px; border-radius: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="zikr">سبحان الله العظيم وأتوب إليه</div>
+    <div id="counter">0</div>
+    <div class="bead" onclick="countUp()"></div>
+    <button class="reset" onclick="reset()">تصفير</button>
+
+    <script>
+        let score = 0;
+        const zikrs = ["سبحان الله العظيم وأتوب إليه", "الحمد لله", "الله أكبر"];
+        let zikrIndex = 0;
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function countUp() {
+            score++;
+            document.getElementById('counter').innerText = score;
+            // تغيير الذكر كل 33 ضغطة
+            if (score % 33 === 0) {
+                zikrIndex = (zikrIndex + 1) % zikrs.length;
+                document.getElementById('zikr').innerText = zikrs[zikrIndex];
+            }
+            tg.HapticFeedback.impactOccurred('medium');
+        }
+
+        function reset() {
+            score = 0;
+            zikrIndex = 0;
+            document.getElementById('counter').innerText = "0";
+            document.getElementById('zikr').innerText = zikrs[0];
+        }
+    </script>
+</body>
+</html>
+
