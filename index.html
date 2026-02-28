@@ -3,175 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>سبحة الأذكار - Rachidchiha54</title>
+    <title>سبحة Rachidchiha54 الاحترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root { --main-bg: #064e3b; --accent: #f1c40f; --glow: rgba(241, 196, 15, 0.6); }
+        .theme-blue { --main-bg: #1e3a8a; --accent: #60a5fa; --glow: rgba(96, 165, 250, 0.6); }
+        .theme-dark { --main-bg: #111; --accent: #d4af37; --glow: rgba(212, 175, 55, 0.4); }
+        .stealth-active { --main-bg: #051a14; --accent: #1a3a32; --glow: transparent; }
+
+        * { -webkit-tap-highlight-color: transparent; outline: none; user-select: none; }
+
         body { 
-            background-color: #064e3b; 
-            /* خلفية مزخرفة قرآنية إسلامية أنيقة */
+            background-color: var(--main-bg); 
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PHBhdGggZD0iTTQwIDQwaDIwdjIwSDQWMDB6bTIwIDIwaDIwdjIwSDYwVjIwek00MCA2MGgyMHYyMEg0MFY2MHoyMCAwaDIwdjIwSDYwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
-            color: #fff; 
-            text-align: center; 
-            font-family: 'Cairo', sans-serif; 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-start;
-            margin: 0; 
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            color: #fff; text-align: center; font-family: 'Cairo', sans-serif; 
+            height: 100vh; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center;
+            transition: all 0.5s ease;
         }
 
-        #zikr { 
-            font-family: 'Amiri', serif;
-            font-size: 38px; 
-            color: #f1c40f; 
-            text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
-            margin-top: 90px;
-            min-height: 80px;
-            padding: 0 20px;
+        /* شاشة الترحيب (Splash Screen) */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111; z-index: 1000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; transition: opacity 1s ease, visibility 1s;
         }
+        #splash h1 { font-family: 'Amiri', serif; font-size: 40px; color: #f1c40f; margin: 10px 0; text-shadow: 0 0 20px #f1c40f; }
+        #splash p { font-size: 18px; letter-spacing: 3px; color: #aaa; }
+        .loader { width: 50px; height: 50px; border: 3px solid #333; border-top: 3px solid #f1c40f; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        #counter { 
-            font-size: 85px; 
-            font-weight: 900;
-            color: #ffffff;
-            margin-top: 15px;
-            transition: all 0.2s ease;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 2px 2px 5px rgba(0,0,0,0.5);
-        }
+        /* باقي كود السبحة */
+        .header-info { position: absolute; top: 15px; width: 92%; display: flex; justify-content: space-between; align-items: center; }
+        .badge { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 900; box-shadow: 0 0 15px var(--glow); }
 
-        .main-area {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-top: 30px; 
-        }
+        .goal-circle { position: relative; width: 90px; height: 90px; margin-top: 60px; border-radius: 50%; background: conic-gradient(var(--accent) 0%, rgba(255,255,255,0.1) 0%); display: flex; align-items: center; justify-content: center; }
+        .goal-circle::after { content: "وِردك"; position: absolute; width: 75px; height: 75px; background: var(--main-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
 
-        .bead { 
-            width: 165px; 
-            height: 165px; 
-            background: radial-gradient(circle, #ffffff 0%, #e0e0e0 100%); 
-            border-radius: 50%; 
-            border: 10px solid #059669;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 -5px 10px rgba(0,0,0,0.1); 
-            cursor: pointer; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.05s;
-        }
+        #zikr { font-family: 'Amiri', serif; font-size: 32px; color: var(--accent); margin-top: 15px; text-shadow: 0 0 10px var(--glow); min-height: 55px; }
+        #counter { font-size: 80px; font-weight: 900; margin: 5px 0; }
 
-        .bead:active { transform: scale(0.94); }
-        .bead span { color: #064e3b; font-weight: 900; font-size: 24px; }
+        .controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; justify-content: center; }
+        .btn-action { background: rgba(255,255,255,0.1); border: 1px solid var(--accent); color: #fff; padding: 8px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; transition: 0.3s; }
 
-        .reset-icon-btn {
-            position: absolute;
-            right: 15%;
-            bottom: -5px;
-            width: 48px;
-            height: 48px;
-            background: rgba(231, 76, 60, 0.9);
-            border: 2px solid #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-        }
-        .reset-icon-btn::after { content: "↻"; color: white; font-size: 22px; }
+        .bead-area { position: relative; margin-top: 15px; }
+        .bead { width: 145px; height: 145px; background: radial-gradient(circle, #fff 0%, #aaa 100%); border-radius: 50%; border: 8px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.05s; }
+        .bead:active { transform: scale(0.92); }
+        .bead span { color: #000; font-weight: 900; font-size: 22px; pointer-events: none; }
 
-        /* تعديل التوقيع: رفعه للأعلى قليلاً وتغيير شكل الكتابة */
-        .signature {
-            font-family: 'Cairo', sans-serif; /* تغيير الخط إلى Cairo */
-            font-size: 16px; /* تكبير الخط قليلاً */
-            font-weight: 700; /* جعل الخط عريضاً */
-            color: rgba(255, 255, 255, 0.8); /* زيادة الوضوح */
-            position: absolute;
-            bottom: 60px; /* رفعه للأعلى قليلاً (كان 30px) */
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-        }
+        .reset-btn { position: absolute; right: -25px; bottom: 0; width: 40px; height: 40px; background: #c0392b; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+        #long-zikr-panel { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 88%; max-height: 75%; background: #fff; color: #333; border-radius: 20px; padding: 20px; z-index: 100; overflow-y: auto; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99; }
+        .zikr-title { color: #064e3b; border-bottom: 2px solid #f1c40f; font-weight: bold; display: block; margin-top: 10px; }
+
+        .signature { position: absolute; bottom: 30px; font-size: 18px; font-weight: 900; color: var(--accent); text-shadow: 0 0 8px var(--glow); letter-spacing: 2px; }
+        .stealth-active #counter, .stealth-active #zikr, .stealth-active .goal-circle { opacity: 0.05; }
     </style>
 </head>
-<body onclick="handleGlobalClick()">
+<body>
 
-    <div id="zikr">الله أكبر ولله الحمد</div>
+    <div id="splash">
+        <h1>سُبْحَة</h1>
+        <p>RACHIDCHIHA54</p>
+        <div class="loader"></div>
+    </div>
+
+    <div class="header-info">
+        <div class="badge" id="user-badge">مُحب الذكر</div>
+        <div style="font-size: 12px;">المجموع: <span id="total-count" style="color:var(--accent)">0</span></div>
+    </div>
+
+    <div class="goal-circle" id="progress-circle"></div>
+
+    <div id="zikr">سبحان الله</div>
     <div id="counter">0</div>
 
-    <div class="main-area">
-        <div class="bead"><span>سبح</span></div>
-        <div class="reset-icon-btn" onclick="resetCount(event)"></div>
+    <div class="controls">
+        <div class="btn-action" onclick="toggleStealth()">👁️ خفي</div>
+        <div class="btn-action" onclick="changeTheme()">🎨 ألوان</div>
+        <div class="btn-action" onclick="showLongZikr()">📖 أذكار</div>
+        <div class="btn-action" onclick="nextZikr()">🔄 التَّالي</div>
+    </div>
+
+    <div class="bead-area">
+        <div class="bead" onclick="handleTap()"><span>سبح</span></div>
+        <div class="reset-btn" onclick="resetCount()">↻</div>
     </div>
 
     <div class="signature">Rachidchiha54</div>
 
+    <div id="overlay" class="overlay" onclick="closeLongZikr()"></div>
+    <div id="long-zikr-panel">
+        <span class="zikr-title">آية الكرسي</span>
+        <p>اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</p>
+        <button onclick="closeLongZikr()" style="width:100%; padding:10px; background:#064e3b; color:#fff; border:none; border-radius:10px; margin-top:10px; font-weight:bold;">إغلاق</button>
+    </div>
+
     <script>
+        // إخفاء شاشة الترحيب بعد 2.5 ثانية
+        window.onload = () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.visibility = 'hidden', 1000);
+            }, 2500);
+        };
+
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        let count = parseInt(localStorage.getItem('sebhaCount')) || 0;
-        const zikrs = ["الله أكبر ولله الحمد", "سبحان الله", "الحمدلله", "لاإله إلا الله"];
-        document.getElementById('counter').innerText = count;
-        updateZikr();
+        let session = parseInt(localStorage.getItem('sebhaCount')) || 0;
+        let total = parseInt(localStorage.getItem('totalCount')) || 0;
+        let themeIdx = 0;
+        const themes = ['', 'theme-blue', 'theme-dark'];
+        const zikrs = ["سبحان الله", "الحمد لله", "لا إله إلا الله", "الله أكبر", "أستغفر الله", "اللهم صلِ على محمد"];
+        let zikrIdx = 0;
 
-        function vibrateDevice(type) {
-            try {
-                if (type === 'reset') {
-                    tg.HapticFeedback.notificationOccurred('warning');
-                } else {
-                    tg.HapticFeedback.impactOccurred('medium');
-                }
-            } catch (e) { console.log("Telegram Haptic failed"); }
+        function updateUI() {
+            document.getElementById('counter').innerText = session;
+            document.getElementById('total-count').innerText = total;
+            document.getElementById('zikr').innerText = zikrs[zikrIdx];
+            let percent = Math.min((total % 1000) / 10, 100);
+            document.getElementById('progress-circle').style.background = `conic-gradient(var(--accent) ${percent}%, rgba(255,255,255,0.1) 0%)`;
+            
+            let badge = "مُحب الذكر";
+            if(total > 1000) badge = "مُلازم التسبيح";
+            if(total > 5000) badge = "ذاكرٌ مُنيب";
+            if(total > 10000) badge = "نورُ الذاكرين";
+            document.getElementById('user-badge').innerText = badge;
+        }
 
-            if (navigator.vibrate) {
-                if (type === 'reset') {
-                    navigator.vibrate([100, 50, 100]);
-                } else {
-                    navigator.vibrate(40);
-                }
+        function handleTap() {
+            session++; total++;
+            localStorage.setItem('sebhaCount', session);
+            localStorage.setItem('totalCount', total);
+            if (navigator.vibrate) navigator.vibrate(35);
+            try { tg.HapticFeedback.impactOccurred('medium'); } catch(e){}
+            if (session % 33 === 0) {
+                try { tg.HapticFeedback.notificationOccurred('success'); } catch(e){}
+                nextZikr();
             }
+            updateUI();
         }
 
-        function handleGlobalClick() {
-            count++;
-            localStorage.setItem('sebhaCount', count);
-            const counterElem = document.getElementById('counter');
-            counterElem.innerText = count;
-            counterElem.style.transform = "scale(1.08)";
-            setTimeout(() => counterElem.style.transform = "scale(1)", 100);
-            
-            if (count % 33 === 0) updateZikr();
-            
-            vibrateDevice('tap');
-        }
+        function toggleStealth() { document.body.classList.toggle('stealth-active'); }
+        function changeTheme() { themeIdx = (themeIdx + 1) % themes.length; document.body.className = themes[themeIdx]; }
+        function showLongZikr() { document.getElementById('overlay').style.display = 'block'; document.getElementById('long-zikr-panel').style.display = 'block'; }
+        function closeLongZikr() { document.getElementById('overlay').style.display = 'none'; document.getElementById('long-zikr-panel').style.display = 'none'; }
+        function nextZikr() { zikrIdx = (zikrIdx + 1) % zikrs.length; updateUI(); }
+        function resetCount() { session = 0; localStorage.setItem('sebhaCount', 0); updateUI(); }
 
-        function updateZikr() {
-            let index = Math.floor(count / 33) % zikrs.length;
-            document.getElementById('zikr').innerText = zikrs[index];
-        }
-
-        function resetCount(event) {
-            event.stopPropagation();
-            count = 0;
-            localStorage.setItem('sebhaCount', 0);
-            const counterElem = document.getElementById('counter');
-            
-            counterElem.style.opacity = "0";
-            setTimeout(() => {
-                counterElem.innerText = "0";
-                counterElem.style.opacity = "1";
-                updateZikr();
-            }, 150);
-
-            vibrateDevice('reset');
-        }
+        updateUI();
     </script>
 </body>
 </html>
