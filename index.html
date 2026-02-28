@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>سبحة Rachidchiha54 الاحترافية</title>
+    <title>سبحة Rachidchiha54 - الإصدار الشامل</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -22,25 +22,24 @@
             transition: all 0.5s ease;
         }
 
-        /* شاشة الترحيب (Splash Screen) */
+        /* شاشة الترحيب */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #111; z-index: 1000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; transition: opacity 1s ease, visibility 1s;
         }
-        #splash h1 { font-family: 'Amiri', serif; font-size: 40px; color: #f1c40f; margin: 10px 0; text-shadow: 0 0 20px #f1c40f; }
-        #splash p { font-size: 18px; letter-spacing: 3px; color: #aaa; }
-        .loader { width: 50px; height: 50px; border: 3px solid #333; border-top: 3px solid #f1c40f; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px; }
+        #splash h1 { font-family: 'Amiri', serif; font-size: 45px; color: #f1c40f; margin-bottom: 5px; text-shadow: 0 0 25px #f1c40f; }
+        #splash p { font-size: 16px; letter-spacing: 4px; color: #777; font-weight: 900; }
+        .loader { width: 40px; height: 40px; border: 3px solid #222; border-top: 3px solid #f1c40f; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 25px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* باقي كود السبحة */
         .header-info { position: absolute; top: 15px; width: 92%; display: flex; justify-content: space-between; align-items: center; }
         .badge { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 900; box-shadow: 0 0 15px var(--glow); }
 
         .goal-circle { position: relative; width: 90px; height: 90px; margin-top: 60px; border-radius: 50%; background: conic-gradient(var(--accent) 0%, rgba(255,255,255,0.1) 0%); display: flex; align-items: center; justify-content: center; }
         .goal-circle::after { content: "وِردك"; position: absolute; width: 75px; height: 75px; background: var(--main-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
 
-        #zikr { font-family: 'Amiri', serif; font-size: 32px; color: var(--accent); margin-top: 15px; text-shadow: 0 0 10px var(--glow); min-height: 55px; }
+        #zikr { font-family: 'Amiri', serif; font-size: 30px; color: var(--accent); margin-top: 15px; text-shadow: 0 0 10px var(--glow); min-height: 55px; padding: 0 20px; }
         #counter { font-size: 80px; font-weight: 900; margin: 5px 0; }
 
         .controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; justify-content: center; }
@@ -53,9 +52,11 @@
 
         .reset-btn { position: absolute; right: -25px; bottom: 0; width: 40px; height: 40px; background: #c0392b; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        #long-zikr-panel { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 88%; max-height: 75%; background: #fff; color: #333; border-radius: 20px; padding: 20px; z-index: 100; overflow-y: auto; }
+        /* نافذة الأذكار الطويلة */
+        #long-zikr-panel { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 88%; max-height: 75%; background: #fff; color: #333; border-radius: 20px; padding: 20px; z-index: 100; overflow-y: auto; text-align: justify; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99; }
-        .zikr-title { color: #064e3b; border-bottom: 2px solid #f1c40f; font-weight: bold; display: block; margin-top: 10px; }
+        .zikr-title { color: #064e3b; border-bottom: 2px solid #f1c40f; font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; font-size: 18px; }
+        .long-text { font-family: 'Amiri', serif; font-size: 20px; line-height: 1.6; color: #444; }
 
         .signature { position: absolute; bottom: 30px; font-size: 18px; font-weight: 900; color: var(--accent); text-shadow: 0 0 8px var(--glow); letter-spacing: 2px; }
         .stealth-active #counter, .stealth-active #zikr, .stealth-active .goal-circle { opacity: 0.05; }
@@ -82,7 +83,7 @@
     <div class="controls">
         <div class="btn-action" onclick="toggleStealth()">👁️ خفي</div>
         <div class="btn-action" onclick="changeTheme()">🎨 ألوان</div>
-        <div class="btn-action" onclick="showLongZikr()">📖 أذكار</div>
+        <div class="btn-action" onclick="showLongZikr()">📖 أذكار طويلة</div>
         <div class="btn-action" onclick="nextZikr()">🔄 التَّالي</div>
     </div>
 
@@ -96,12 +97,18 @@
     <div id="overlay" class="overlay" onclick="closeLongZikr()"></div>
     <div id="long-zikr-panel">
         <span class="zikr-title">آية الكرسي</span>
-        <p>اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</p>
-        <button onclick="closeLongZikr()" style="width:100%; padding:10px; background:#064e3b; color:#fff; border:none; border-radius:10px; margin-top:10px; font-weight:bold;">إغلاق</button>
+        <p class="long-text">اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.</p>
+        
+        <span class="zikr-title">تاج الذكر</span>
+        <p class="long-text">لا إلهَ إلا اللهُ وحدهُ لا شريكَ لهُ، لهُ الملكُ ولهُ الحمدُ، وهوَ على كلِّ شيءٍ قديرٌ.</p>
+        
+        <span class="zikr-title">سيد الاستغفار</span>
+        <p class="long-text">اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت.</p>
+        
+        <button onclick="closeLongZikr()" style="width:100%; padding:12px; background:#064e3b; color:#fff; border:none; border-radius:10px; margin-top:15px; font-weight:bold; cursor:pointer;">إغلاق</button>
     </div>
 
     <script>
-        // إخفاء شاشة الترحيب بعد 2.5 ثانية
         window.onload = () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash');
